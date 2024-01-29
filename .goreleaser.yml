@@ -1,0 +1,38 @@
+project_name: sdctl
+builds:
+  - id: sdctl
+    binary: sdctl
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X github.com/iptecharch/sdctl/cmd.version={{.Version}} -X github.com/iptecharch/sdctl/cmd.commit={{.ShortCommit}}
+    goos:
+      - linux
+    goarch:
+      - amd64
+archives:
+  - name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else if eq .Arch "arm" }}armv7
+      {{- else if eq .Arch "arm64" }}aarch64
+      {{- else }}{{ .Arch }}{{ end }}
+checksum:
+  name_template: "checksums.txt"
+snapshot:
+  name_template: "{{ .Tag }}"
+changelog:
+  use: github
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+release:
+  prerelease: auto
+  draft: true
+  replace_existing_draft: true
+  disable: false
