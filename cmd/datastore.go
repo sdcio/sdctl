@@ -22,7 +22,6 @@ import (
 	sdcpb "github.com/iptecharch/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 var datastoreName string
@@ -43,12 +42,7 @@ func init() {
 func createDataClient(ctx context.Context, addr string) (sdcpb.DataServerClient, error) {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
-	cc, err := grpc.DialContext(ctx, addr,
-		grpc.WithBlock(),
-		grpc.WithTransportCredentials(
-			insecure.NewCredentials(),
-		),
-	)
+	cc, err := grpc.DialContext(ctx, addr, grpcClientDialOpts()...)
 	if err != nil {
 		return nil, err
 	}

@@ -42,16 +42,19 @@ func init() {
 
 }
 
-func createSchemaClient(ctx context.Context, addr string) (sdcpb.SchemaServerClient, error) {
-	ctx, cancel := context.WithTimeout(ctx, timeout)
-	defer cancel()
-	cc, err := grpc.DialContext(ctx, addr,
+func grpcClientDialOpts() []grpc.DialOption {
+	return []grpc.DialOption{
 		grpc.WithBlock(),
 		grpc.WithTransportCredentials(
 			insecure.NewCredentials(),
 		),
 		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(maxRcvMsg)),
-	)
+	}
+}
+func createSchemaClient(ctx context.Context, addr string) (sdcpb.SchemaServerClient, error) {
+	ctx, cancel := context.WithTimeout(ctx, timeout)
+	defer cancel()
+	cc, err := grpc.DialContext(ctx, addr, grpcClientDialOpts()...)
 	if err != nil {
 		return nil, err
 	}
