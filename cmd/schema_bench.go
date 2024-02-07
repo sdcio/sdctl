@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"time"
 
-	sdcpb "github.com/iptecharch/sdc-protos/sdcpb"
+	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/iptecharch/schema-server/pkg/utils"
+	"github.com/sdcio/schema-server/pkg/utils"
 )
 
 // schemaBenchCmd represents the bench command

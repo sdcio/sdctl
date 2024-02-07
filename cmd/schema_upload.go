@@ -14,7 +14,7 @@ import (
 	"os"
 	"path/filepath"
 
-	sdcpb "github.com/iptecharch/sdc-protos/sdcpb"
+	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
