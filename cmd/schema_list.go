@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
 
-	sdcpb "github.com/iptecharch/sdc-protos/sdcpb"
+	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 )
 
 // schemaListCmd represents the list command
