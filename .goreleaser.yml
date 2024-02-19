@@ -24,6 +24,27 @@ builds:
       - linux
     goarch:
       - amd64
+dockers:
+  - goos: linux
+    goarch: amd64
+    ids:
+      - sdctl
+    image_templates:
+      - "ghcr.io/sdcio/sdctl:v{{ .Version }}"
+      - "ghcr.io/sdcio/sdctl:latest"
+      - "registry.kmrd.dev/sdcio/sdctl:v{{ .Version }}"
+      - "registry.kmrd.dev/sdcio/sdctl:latest"
+      - "registry.k8s.sdcio.dev/sdcio/sdctl:v{{ .Version }}"
+      - "registry.k8s.sdcio.dev/sdcio/sdctl:latest"
+    dockerfile: goreleaser.dockerfile
+    skip_push: false
+    build_flag_templates:
+      - "--pull"
+      - "--build-arg=USERID=10000"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.source=https://github.com/sdcio/{{.ProjectName}}"
+      - "--label=org.opencontainers.image.version=v{{.Version}}"
 archives:
   - name_template: >-
       {{ .ProjectName }}_
@@ -47,6 +68,6 @@ changelog:
       - "^test:"
 release:
   prerelease: auto
-  draft: true
+  draft: false
   replace_existing_draft: true
   disable: false
