@@ -1,5 +1,5 @@
 # container image
-REMOTE_REGISTRY := registry.kmrd.dev/sdcio/sdctl
+REMOTE_REGISTRY ?= registry.kmrd.dev/sdcio/sdctl
 TAG := $(shell git describe --tags)
 IMAGE := $(REMOTE_REGISTRY):$(TAG)
 USERID := 10000
