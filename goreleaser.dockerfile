@@ -27,8 +27,13 @@ RUN adduser --shell /usr/sbin/nologin --uid $USERID --disabled-login --no-create
 RUN mkdir -p /schemas
 #
 
-FROM scratch
+FROM alpine:3
 ARG USERID=10000
+RUN apk add --no-cache bash \
+        curl \
+        git \
+        openssh \
+        make
 # add-in our timezone data file
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 # add-in our unprivileged user
