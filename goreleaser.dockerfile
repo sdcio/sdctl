@@ -27,7 +27,7 @@ RUN adduser --shell /usr/sbin/nologin --uid $USERID --disabled-login --no-create
 RUN mkdir -p /schemas
 #
 
-FROM scratch
+FROM alpine:3
 ARG USERID=10000
 # add-in our timezone data file
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
