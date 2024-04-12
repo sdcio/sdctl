@@ -91,8 +91,4 @@ func init() {
 	datastoreCreateCmd.Flags().StringVarP(&syncFile, "sync", "", "", "target sync definition file")
 	datastoreCreateCmd.Flags().StringVarP(&owner, "owner", "", "", "candidate owner")
 	datastoreCreateCmd.Flags().Int32VarP(&priority, "priority", "", 0, "candidate priority")
-
-	datastoreCreateCmd.Flags().StringVar(&schemaName, "name", "", "schema name")
-	datastoreCreateCmd.Flags().StringVar(&schemaVendor, "vendor", "", "schema vendor")
-	datastoreCreateCmd.Flags().StringVar(&schemaVersion, "version", "", "schema version")
 }
