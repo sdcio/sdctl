@@ -38,9 +38,8 @@ var dataSetIntentCmd = &cobra.Command{
 			req.Delete = true
 		}
 		if intentDefinition != "" {
-
 			intentDefs := make([]*intentDef, 0)
-			err := utils.JsonUnmarshalStrict(intentDefinition, intentDefs)
+			err := utils.JsonUnmarshalStrict(intentDefinition, &intentDefs)
 			if err != nil {
 				return err
 			}

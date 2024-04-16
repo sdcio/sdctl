@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func JsonUnmarshalStrict(file string, strukt interface{}) error {
+func JsonUnmarshalStrict(file string, obj interface{}) error {
 	// open the file
 	f, err := os.Open(file)
 	if err != nil {
@@ -16,7 +16,7 @@ func JsonUnmarshalStrict(file string, strukt interface{}) error {
 	// enable strict parsing
 	decoder.DisallowUnknownFields()
 	// unmarshall
-	err = decoder.Decode(strukt)
+	err = decoder.Decode(obj)
 	if err != nil {
 		return err
 	}
