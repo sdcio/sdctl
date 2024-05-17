@@ -34,9 +34,7 @@ var dataSetIntentCmd = &cobra.Command{
 			Priority: priority,
 			Update:   make([]*sdcpb.Update, 0),
 		}
-		if intentDeleteFlag {
-			req.Delete = true
-		}
+		req.Delete = intentDeleteFlag
 		if intentDefinition != "" {
 			intentDefs := make([]*intentDef, 0)
 			err := utils.JsonUnmarshalStrict(intentDefinition, &intentDefs)
@@ -84,7 +82,7 @@ func init() {
 	dataSetIntentCmd.Flags().StringVarP(&intentName, "intent", "", "", "intent name")
 	dataSetIntentCmd.Flags().StringVarP(&intentDefinition, "file", "", "", "intent definition file")
 	dataSetIntentCmd.Flags().Int32VarP(&priority, "priority", "", 0, "intent priority")
-	dataSetIntentCmd.Flags().BoolVarP(&deleteFlag, "delete", "", false, "delete intent")
+	dataSetIntentCmd.Flags().BoolVarP(&intentDeleteFlag, "delete", "", false, "delete intent")
 }
 
 type intentDef struct {
