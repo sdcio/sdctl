@@ -35,10 +35,6 @@ var schemaCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(schemaCmd)
-	schemaCmd.PersistentFlags().StringVar(&schemaName, "name", "", "schema name")
-	schemaCmd.PersistentFlags().StringVar(&schemaVendor, "vendor", "", "schema vendor")
-	schemaCmd.PersistentFlags().StringVar(&schemaVersion, "version", "", "schema version")
-
 }
 
 func grpcClientDialOpts() []grpc.DialOption {

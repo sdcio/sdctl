@@ -8,13 +8,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
 
+	dsutils "github.com/sdcio/data-server/pkg/utils"
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
+	"github.com/sdcio/sdctl/pkg/utils"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
-
-	"github.com/sdcio/data-server/pkg/utils"
 )
 
 var intentDeleteFlag bool
@@ -35,21 +34,16 @@ var dataSetIntentCmd = &cobra.Command{
 			Priority: priority,
 			Update:   make([]*sdcpb.Update, 0),
 		}
-		if intentDeleteFlag {
-			req.Delete = true
-		}
+		req.Delete = intentDeleteFlag
 		if intentDefinition != "" {
-			b, err := os.ReadFile(intentDefinition)
-			if err != nil {
-				return err
-			}
 			intentDefs := make([]*intentDef, 0)
-			err = json.Unmarshal(b, &intentDefs)
+			err := utils.JsonUnmarshalStrict(intentDefinition, &intentDefs)
 			if err != nil {
 				return err
 			}
+
 			for _, idef := range intentDefs {
-				p, err := utils.ParsePath(idef.Path)
+				p, err := dsutils.ParsePath(idef.Path)
 				if err != nil {
 					return err
 				}
@@ -86,9 +80,9 @@ var dataSetIntentCmd = &cobra.Command{
 func init() {
 	dataCmd.AddCommand(dataSetIntentCmd)
 	dataSetIntentCmd.Flags().StringVarP(&intentName, "intent", "", "", "intent name")
-	dataSetIntentCmd.Flags().StringVarP(&intentDefinition, "body", "", "", "intent body")
+	dataSetIntentCmd.Flags().StringVarP(&intentDefinition, "file", "", "", "intent definition file")
 	dataSetIntentCmd.Flags().Int32VarP(&priority, "priority", "", 0, "intent priority")
-	dataSetIntentCmd.Flags().BoolVarP(&deleteFlag, "delete", "", false, "delete intent")
+	dataSetIntentCmd.Flags().BoolVarP(&intentDeleteFlag, "delete", "", false, "delete intent")
 }
 
 type intentDef struct {

@@ -5,11 +5,10 @@ package cmd
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"os"
 
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
+	"github.com/sdcio/sdctl/pkg/utils"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
 )
@@ -32,28 +31,24 @@ var datastoreCreateCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		var tg *sdcpb.Target
-		if target != "" {
-			b, err := os.ReadFile(target)
-			if err != nil {
-				return err
-			}
-			tg = &sdcpb.Target{}
-			err = json.Unmarshal(b, tg)
-			if err != nil {
-				return err
-			}
-		}
+
 		req := &sdcpb.CreateDataStoreRequest{
 			Name: datastoreName,
 		}
-		if syncFile != "" {
-			b, err := os.ReadFile(syncFile)
+
+		var tg *sdcpb.Target
+		if target != "" {
+			tg = &sdcpb.Target{}
+			err = utils.JsonUnmarshalStrict(target, tg)
 			if err != nil {
 				return err
 			}
+			req.Target = tg
+		}
+
+		if syncFile != "" {
 			sync := &sdcpb.Sync{}
-			err = json.Unmarshal(b, sync)
+			err = utils.JsonUnmarshalStrict(syncFile, sync)
 			if err != nil {
 				return err
 			}
@@ -69,15 +64,13 @@ var datastoreCreateCmd = &cobra.Command{
 				Owner:    owner,
 				Priority: priority,
 			}
-			req.Target = tg
-			//create a main datastore
+		//create a main datastore
 		default:
 			req.Schema = &sdcpb.Schema{
 				Name:    schemaName,
 				Vendor:  schemaVendor,
 				Version: schemaVersion,
 			}
-			req.Target = tg
 		}
 		fmt.Println("request:")
 		fmt.Println(prototext.Format(req))
@@ -98,5 +91,4 @@ func init() {
 	datastoreCreateCmd.Flags().StringVarP(&syncFile, "sync", "", "", "target sync definition file")
 	datastoreCreateCmd.Flags().StringVarP(&owner, "owner", "", "", "candidate owner")
 	datastoreCreateCmd.Flags().Int32VarP(&priority, "priority", "", 0, "candidate priority")
-
 }

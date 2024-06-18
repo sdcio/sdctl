@@ -56,6 +56,9 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&format, "format", "", "output format")
 	rootCmd.PersistentFlags().IntVar(&maxRcvMsg, "max-rcv-msg", 25165824, "the maximum message size in bytes the client can receive")
 	rootCmd.PersistentFlags().DurationVarP(&timeout, "timeout", "", 60*time.Second, "gRPC rpc timeout")
+	rootCmd.PersistentFlags().StringVar(&schemaName, "name", "", "schema name")
+	rootCmd.PersistentFlags().StringVar(&schemaVendor, "vendor", "", "schema vendor")
+	rootCmd.PersistentFlags().StringVar(&schemaVersion, "version", "", "schema version")
 }
 
 // initConfig reads in config file and ENV variables if set.
