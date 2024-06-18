@@ -174,8 +174,8 @@ github.com/sdcio/data-server v0.0.35 h1:3JOZdemMkltEj32ia51eFzTCrVbCbsTU/3kM2avC
 github.com/sdcio/data-server v0.0.35/go.mod h1:hlBjLngDY7SST8y2lea98tehQV5DNiDPF0UhLgYe2jQ=
 github.com/sdcio/schema-server v0.0.16 h1:mBm/hj0WQlNN7/S+tBwsf2Mc0XW4coaah27WDcxbTOQ=
 github.com/sdcio/schema-server v0.0.16/go.mod h1:Wp7DRUkX0DQZNARIgcJtCjOuLp5pwUCDVCAuvM5LA5g=
-github.com/sdcio/sdc-protos v0.0.22 h1:miAONxMvf0zlCYQz2exUS59y8VndR5HNtrVWCPbbTMg=
-github.com/sdcio/sdc-protos v0.0.22/go.mod h1:iVVPmQTRzoCV4abQ4QL5mJethvRVfdV8cHcVyDtSNs4=
+github.com/sdcio/sdc-protos v0.0.24 h1:AEhRfPRQVzb6KMxrFSd+ODiiC605ql7qbg2yxE1ARKQ=
+github.com/sdcio/sdc-protos v0.0.24/go.mod h1:iVVPmQTRzoCV4abQ4QL5mJethvRVfdV8cHcVyDtSNs4=
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
 github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
 github.com/sourcegraph/conc v0.3.0 h1:OQTbbt6P72L20UqAkXXuLOj79LfEanQ+YQFNpLA9ySo=
