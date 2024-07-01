@@ -10,7 +10,7 @@ require (
 	github.com/sdcio/schema-server v0.0.18
 	github.com/sdcio/sdc-protos v0.0.25
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.18.2
 	golang.org/x/sync v0.6.0
