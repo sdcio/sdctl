@@ -18,6 +18,8 @@ import (
 
 var intentDeleteFlag bool
 var intentDefinition string
+var intentOnlyIntended bool
+var intentDryRun bool
 
 // dataSetIntentCmd represents the set-intent command
 var dataSetIntentCmd = &cobra.Command{
@@ -28,6 +30,9 @@ var dataSetIntentCmd = &cobra.Command{
 		if deleteFlag && intentDefinition != "" {
 			return errors.New("cannot set an intent body and the delete flag at the same time")
 		}
+		if intentOnlyIntended && !deleteFlag {
+			return errors.New("deleteOnlyIntended flag can just be set if the delete flag is set")
+		}
 		req := &sdcpb.SetIntentRequest{
 			Name:     datastoreName,
 			Intent:   intentName,
@@ -35,6 +40,8 @@ var dataSetIntentCmd = &cobra.Command{
 			Update:   make([]*sdcpb.Update, 0),
 		}
 		req.Delete = intentDeleteFlag
+		req.OnlyIntended = intentOnlyIntended
+		req.DryRun = intentDryRun
 		if intentDefinition != "" {
 			intentDefs := make([]*intentDef, 0)
 			err := utils.JsonUnmarshalStrict(intentDefinition, &intentDefs)
@@ -83,6 +90,8 @@ func init() {
 	dataSetIntentCmd.Flags().StringVarP(&intentDefinition, "file", "", "", "intent definition file")
 	dataSetIntentCmd.Flags().Int32VarP(&priority, "priority", "", 0, "intent priority")
 	dataSetIntentCmd.Flags().BoolVarP(&intentDeleteFlag, "delete", "", false, "delete intent")
+	dataSetIntentCmd.Flags().BoolVarP(&intentOnlyIntended, "deleteOnlyIntended", "", false, "delete only from intended store, results in unmanaged config")
+	dataSetIntentCmd.Flags().BoolVarP(&intentDryRun, "dryrun", "", false, "execute in dryrun mode, not applying to device or intended store.")
 }
 
 type intentDef struct {
