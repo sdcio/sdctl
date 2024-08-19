@@ -169,8 +169,8 @@ github.com/sagikazarmark/slog-shim v0.1.0 h1:diDBnUNK9N/354PgrxMywXnAwEr1QZcOr6g
 github.com/sagikazarmark/slog-shim v0.1.0/go.mod h1:SrcSrq8aKtyuqEI1uvTDTK1arOWRIczQRv+GVI1AkeQ=
 github.com/sdcio/cache v0.0.34 h1:mDxIPN9r339yHykCPJZFKX0va8RMoAscErbEkAcql7E=
 github.com/sdcio/cache v0.0.34/go.mod h1:u/rIbC03e6k+J19VWo8DwJdBWY0vzNZ25viXRmrS+5I=
-github.com/sdcio/data-server v0.0.40 h1:aDUyZzQCEjb4iXgYgT65fcfTk274RJTiAUlG0DCIrJU=
-github.com/sdcio/data-server v0.0.40/go.mod h1:Nf6bGVbu1iEAJezm0wAdYKiPebyHDihvzuUIhagCBMs=
+github.com/sdcio/data-server v0.0.41 h1:cAHpNAqlfxlEgmicsoPyyTb993FmtFgkt3UOyWfYSsY=
+github.com/sdcio/data-server v0.0.41/go.mod h1:x3CrPCR/ZRAMeQOpYUW27l3U2VozRY+dFotvW7rP0EE=
 github.com/sdcio/schema-server v0.0.20 h1:TpWSuWZA3oJZGTEhcuaWOsuwVDLkpuK0h1aUcPO41I0=
 github.com/sdcio/schema-server v0.0.20/go.mod h1:FUnOY70XgtxpTk37Zdt/aat2GzND0TsLQej6da5sFZo=
 github.com/sdcio/sdc-protos v0.0.27 h1:FPXgFLG7euR4Ls5H89omppCTamCaIhX3UU9JwFzxno8=

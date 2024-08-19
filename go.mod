@@ -8,7 +8,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/sdcio/cache v0.0.34
-	github.com/sdcio/data-server v0.0.40
+	github.com/sdcio/data-server v0.0.41
 	github.com/sdcio/schema-server v0.0.20
 	github.com/sdcio/sdc-protos v0.0.27
 	github.com/sirupsen/logrus v1.9.3
