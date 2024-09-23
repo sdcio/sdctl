@@ -27,10 +27,10 @@ var dataSetIntentCmd = &cobra.Command{
 	Short:        "set intent data",
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, _ []string) error {
-		if deleteFlag && intentDefinition != "" {
+		if intentDeleteFlag && intentDefinition != "" {
 			return errors.New("cannot set an intent body and the delete flag at the same time")
 		}
-		if intentOnlyIntended && !deleteFlag {
+		if intentOnlyIntended && !intentDeleteFlag {
 			return errors.New("deleteOnlyIntended flag can just be set if the delete flag is set")
 		}
 		req := &sdcpb.SetIntentRequest{

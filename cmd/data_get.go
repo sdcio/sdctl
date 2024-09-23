@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/sdcio/schema-server/pkg/utils"
@@ -83,8 +84,8 @@ var dataGetCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println("request:")
-		fmt.Println(prototext.Format(req))
+		fmt.Fprintln(os.Stderr, "request:")
+		fmt.Fprintln(os.Stderr, prototext.Format(req))
 		stream, err := dataClient.GetData(ctx, req)
 		if err != nil {
 			return err
@@ -99,13 +100,34 @@ var dataGetCmd = &cobra.Command{
 				return err
 			}
 			count++
+
 			switch format {
 			case "json":
-				b, err := json.MarshalIndent(rsp, "", "  ")
-				if err != nil {
-					return err
+				switch encoding {
+				case "JSON":
+					for _, notifications := range rsp.GetNotification() {
+						for _, upd := range notifications.Update {
+
+							var val any
+							err = json.Unmarshal(upd.GetValue().GetJsonVal(), &val)
+							if err != nil {
+								return err
+							}
+
+							b, err := json.MarshalIndent(val, "", "  ")
+							if err != nil {
+								return err
+							}
+							fmt.Println(string(b))
+						}
+					}
+				default:
+					b, err := json.MarshalIndent(rsp, "", "  ")
+					if err != nil {
+						return err
+					}
+					fmt.Println(string(b))
 				}
-				fmt.Println(string(b))
 			case "flat":
 				for _, n := range rsp.GetNotification() {
 					for _, upd := range n.GetUpdate() {
@@ -120,8 +142,8 @@ var dataGetCmd = &cobra.Command{
 			}
 
 		}
+		fmt.Fprintln(os.Stderr, "num notifications:", count)
 
-		fmt.Println("num notifications:", count)
 		return nil
 	},
 }
