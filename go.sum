@@ -171,8 +171,8 @@ github.com/sdcio/data-server v0.0.42 h1:Nv81MDRRvFC04N9plPzo6X3zhOViZPSaILuu/3+s
 github.com/sdcio/data-server v0.0.42/go.mod h1:4ptqq4TTxQYgTFLqUuPF8zIHrXL/SuNH/hknAlbCwZs=
 github.com/sdcio/schema-server v0.0.20 h1:TpWSuWZA3oJZGTEhcuaWOsuwVDLkpuK0h1aUcPO41I0=
 github.com/sdcio/schema-server v0.0.20/go.mod h1:FUnOY70XgtxpTk37Zdt/aat2GzND0TsLQej6da5sFZo=
-github.com/sdcio/sdc-protos v0.0.27 h1:FPXgFLG7euR4Ls5H89omppCTamCaIhX3UU9JwFzxno8=
-github.com/sdcio/sdc-protos v0.0.27/go.mod h1:4m/TbZElS2E05Sv3n4PHt8caJnBHfNyX9I+4jUlLc8k=
+github.com/sdcio/sdc-protos v0.0.32 h1:rYHHUpxDuQJDrgpW8hU7lsm0sWwz8IvWauJinf6D7WM=
+github.com/sdcio/sdc-protos v0.0.32/go.mod h1:RqUEmq53figRv5AYZkxyZl7Wx+cKy/rIQdOxfwIBI0k=
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
 github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
 github.com/sourcegraph/conc v0.3.0 h1:OQTbbt6P72L20UqAkXXuLOj79LfEanQ+YQFNpLA9ySo=
@@ -287,8 +287,8 @@ google.golang.org/grpc v1.23.0/go.mod h1:Y5yQAOtifL1yxbo5wqy6BxZv8vAUGQwXBOALyac
 google.golang.org/grpc v1.25.1/go.mod h1:c3i+UQWmh7LiEpx4sFZnkU36qjEYZ0imhYfXVyQciAY=
 google.golang.org/grpc v1.27.0/go.mod h1:qbnxyOmOxrQa7FizSgH+ReBfzJrCY1pSN7KXBS8abTk=
 google.golang.org/grpc v1.33.2/go.mod h1:JMHMWHQWaTccqQQlmk3MJZS+GWXOdAesneDmEnv2fbc=
-google.golang.org/grpc v1.66.2 h1:3QdXkuq3Bkh7w+ywLdLvM56cmGvQHUMZpiCzt6Rqaoo=
-google.golang.org/grpc v1.66.2/go.mod h1:s3/l6xSSCURdVfAnL+TqCNMyTDAGN6+lZeVxnZR128Y=
+google.golang.org/grpc v1.67.0 h1:IdH9y6PF5MPSdAntIcpjQ+tXO41pcQsfZV2RxtQgVcw=
+google.golang.org/grpc v1.67.0/go.mod h1:1gLDyUQU7CTLJI90u3nXZ9ekeghjeM7pTDZlqFNg2AA=
 google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod h1:DFci5gLYBciE7Vtevhsrf46CRTquxDuWsQurQQe4oz8=
 google.golang.org/protobuf v0.0.0-20200221191635-4d8936d0db64/go.mod h1:kwYJMbMJ01Woi6D6+Kah6886xMZcty6N08ah7+eCXa0=
 google.golang.org/protobuf v0.0.0-20200228230310-ab0ca4ff8a60/go.mod h1:cfTl7dwQJ+fmap5saPgwCLgHXTUD7jkjRqWcaiX5VyM=
