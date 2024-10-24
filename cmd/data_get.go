@@ -31,25 +31,25 @@ var dataGetCmd = &cobra.Command{
 			return fmt.Errorf("cannot set a candidate name and intended store at the same time")
 		}
 		var dt sdcpb.DataType
-		switch dataType {
-		case "ALL":
-		case "CONFIG":
+		switch strings.ToLower(dataType) {
+		case "all":
+		case "config":
 			dt = sdcpb.DataType_CONFIG
-		case "STATE":
+		case "state":
 			dt = sdcpb.DataType_STATE
 		default:
 			return fmt.Errorf("invalid flag value --type %s", dataType)
 		}
 
 		var enc sdcpb.Encoding
-		switch encoding {
-		case "STRING":
+		switch strings.ToLower(encoding) {
+		case "string":
 			enc = sdcpb.Encoding_STRING
-		case "JSON":
+		case "json":
 			enc = sdcpb.Encoding_JSON
-		case "JSON_IETF":
+		case "json_ietf":
 			enc = sdcpb.Encoding_JSON_IETF
-		case "PROTO":
+		case "proto":
 			enc = sdcpb.Encoding_PROTO
 		}
 
