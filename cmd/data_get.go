@@ -101,10 +101,10 @@ var dataGetCmd = &cobra.Command{
 			}
 			count++
 
-			switch format {
+			switch strings.ToLower(format) {
 			case "json":
-				switch encoding {
-				case "JSON":
+				switch strings.ToLower(encoding) {
+				case "json", "json_ietf":
 					for _, notifications := range rsp.GetNotification() {
 						for _, upd := range notifications.Update {
 
