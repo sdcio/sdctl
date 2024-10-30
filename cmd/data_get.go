@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/sdcio/schema-server/pkg/utils"
@@ -30,25 +31,25 @@ var dataGetCmd = &cobra.Command{
 			return fmt.Errorf("cannot set a candidate name and intended store at the same time")
 		}
 		var dt sdcpb.DataType
-		switch dataType {
-		case "ALL":
-		case "CONFIG":
+		switch strings.ToLower(dataType) {
+		case "all":
+		case "config":
 			dt = sdcpb.DataType_CONFIG
-		case "STATE":
+		case "state":
 			dt = sdcpb.DataType_STATE
 		default:
 			return fmt.Errorf("invalid flag value --type %s", dataType)
 		}
 
 		var enc sdcpb.Encoding
-		switch encoding {
-		case "STRING":
+		switch strings.ToLower(encoding) {
+		case "string":
 			enc = sdcpb.Encoding_STRING
-		case "JSON":
+		case "json":
 			enc = sdcpb.Encoding_JSON
-		case "JSON_IETF":
+		case "json_ietf":
 			enc = sdcpb.Encoding_JSON_IETF
-		case "PROTO":
+		case "proto":
 			enc = sdcpb.Encoding_PROTO
 		}
 
@@ -83,8 +84,8 @@ var dataGetCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println("request:")
-		fmt.Println(prototext.Format(req))
+		fmt.Fprintln(os.Stderr, "request:")
+		fmt.Fprintln(os.Stderr, prototext.Format(req))
 		stream, err := dataClient.GetData(ctx, req)
 		if err != nil {
 			return err
@@ -99,13 +100,34 @@ var dataGetCmd = &cobra.Command{
 				return err
 			}
 			count++
-			switch format {
+
+			switch strings.ToLower(format) {
 			case "json":
-				b, err := json.MarshalIndent(rsp, "", "  ")
-				if err != nil {
-					return err
+				switch strings.ToLower(encoding) {
+				case "json", "json_ietf":
+					for _, notifications := range rsp.GetNotification() {
+						for _, upd := range notifications.Update {
+
+							var val any
+							err = json.Unmarshal(upd.GetValue().GetJsonVal(), &val)
+							if err != nil {
+								return err
+							}
+
+							b, err := json.MarshalIndent(val, "", "  ")
+							if err != nil {
+								return err
+							}
+							fmt.Println(string(b))
+						}
+					}
+				default:
+					b, err := json.MarshalIndent(rsp, "", "  ")
+					if err != nil {
+						return err
+					}
+					fmt.Println(string(b))
 				}
-				fmt.Println(string(b))
 			case "flat":
 				for _, n := range rsp.GetNotification() {
 					for _, upd := range n.GetUpdate() {
@@ -120,8 +142,8 @@ var dataGetCmd = &cobra.Command{
 			}
 
 		}
+		fmt.Fprintln(os.Stderr, "num notifications:", count)
 
-		fmt.Println("num notifications:", count)
 		return nil
 	},
 }
