@@ -6,10 +6,11 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
 
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
-	"github.com/sdcio/sdctl/pkg/utils"
 	"github.com/spf13/cobra"
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/encoding/prototext"
 )
 
@@ -38,8 +39,12 @@ var datastoreCreateCmd = &cobra.Command{
 
 		var tg *sdcpb.Target
 		if target != "" {
+			f, err := os.ReadFile(target)
+			if err != nil {
+				return err
+			}
 			tg = &sdcpb.Target{}
-			err = utils.JsonUnmarshalStrict(target, tg)
+			err = protojson.Unmarshal(f, tg)
 			if err != nil {
 				return err
 			}
@@ -47,8 +52,12 @@ var datastoreCreateCmd = &cobra.Command{
 		}
 
 		if syncFile != "" {
+			f, err := os.ReadFile(syncFile)
+			if err != nil {
+				return err
+			}
 			sync := &sdcpb.Sync{}
-			err = utils.JsonUnmarshalStrict(syncFile, sync)
+			err = protojson.Unmarshal(f, sync)
 			if err != nil {
 				return err
 			}
