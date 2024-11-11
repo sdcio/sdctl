@@ -1,8 +1,7 @@
 module github.com/sdcio/sdctl
 
 go 1.22.0
-
-toolchain go1.22.6
+toolchain go1.22.9
 
 require (
 	github.com/mitchellh/go-homedir v1.1.0
@@ -16,7 +15,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.19.0
 	golang.org/x/sync v0.8.0
-	google.golang.org/grpc v1.67.1
+	google.golang.org/grpc v1.68.0
 	google.golang.org/protobuf v1.35.1
 	gopkg.in/yaml.v2 v2.4.0
 )
