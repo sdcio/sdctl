@@ -8,15 +8,15 @@ require (
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/sdcio/cache v0.0.35
 	github.com/sdcio/data-server v0.0.51
-	github.com/sdcio/schema-server v0.0.28
-	github.com/sdcio/sdc-protos v0.0.36
+	github.com/sdcio/schema-server v0.0.29
+	github.com/sdcio/sdc-protos v0.0.38
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.19.0
 	golang.org/x/sync v0.10.0
-	google.golang.org/grpc v1.69.0
-	google.golang.org/protobuf v1.35.2
+	google.golang.org/grpc v1.69.2
+	google.golang.org/protobuf v1.36.2
 	gopkg.in/yaml.v2 v2.4.0
 )
 
