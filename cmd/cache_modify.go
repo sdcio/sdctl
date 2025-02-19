@@ -114,6 +114,7 @@ func init() {
 }
 
 func toTypedValue(typ, val string) (*sdcpb.TypedValue, error) {
+	_ = typ
 	// TODO: switch over typ
 	return &sdcpb.TypedValue{
 		Value: &sdcpb.TypedValue_StringVal{

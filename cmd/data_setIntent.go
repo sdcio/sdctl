@@ -40,7 +40,7 @@ var dataSetIntentCmd = &cobra.Command{
 			Update:   make([]*sdcpb.Update, 0),
 		}
 		req.Delete = intentDeleteFlag
-		req.OnlyIntended = intentOnlyIntended
+		req.Orphan = intentOnlyIntended
 		req.DryRun = intentDryRun
 		if intentDefinition != "" {
 			intentDefs := make([]*intentDef, 0)

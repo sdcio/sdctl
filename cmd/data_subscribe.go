@@ -134,7 +134,7 @@ type subscription struct {
 	SuppressRedundant bool          `yaml:"suppress-redundant,omitempty"`
 }
 
-func subscribeRequestFromFile(file string) (*sdcpb.SubscribeRequest, error) {
+func subscribeRequestFromFile(subscriptionFile string) (*sdcpb.SubscribeRequest, error) {
 	b, err := os.ReadFile(subscriptionFile)
 	if err != nil {
 		return nil, err
