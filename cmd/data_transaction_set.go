@@ -76,6 +76,12 @@ var dataTransactionSetCmd = &cobra.Command{
 
 		fmt.Println("response:")
 		fmt.Println(prototext.Format(rsp))
+
+		errs := rsp.GetErrors()
+		if len(errs) > 0 {
+			return fmt.Errorf("validation errors present")
+		}
+
 		return nil
 	},
 }
