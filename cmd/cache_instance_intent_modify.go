@@ -15,16 +15,16 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"os"
 
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-// discardCmd represents the discard command
-var discardCmd = &cobra.Command{
-	Use:     "discard-candidate",
-	Aliases: []string{"discard"},
-	Short:   "discard changes made to a candidate",
+// listCmd represents the list command
+var intent_modify = &cobra.Command{
+	Use:   "intent-modify",
+	Short: "modify intent",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -35,16 +35,19 @@ var discardCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = c.Discard(cmd.Context(), cacheName, candidateName)
+		data, err := os.ReadFile(file)
 		if err != nil {
 			return err
 		}
-		return nil
+
+		err = c.InstanceIntentModify(cmd.Context(), cacheName, intentName, data)
+		return err
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(discardCmd)
-	discardCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
-	discardCmd.Flags().StringVarP(&candidateName, "candidate", "", "", "cache candidate name")
+	intent_modify.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_modify.Flags().StringVarP(&intentName, "intent", "i", "", "intent name")
+	intent_modify.Flags().StringVarP(&file, "file", "f", "", "file")
+	cacheCmd.AddCommand(intent_modify)
 }

@@ -7,10 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
-	"sort"
 
-	"github.com/olekukonko/tablewriter"
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
@@ -37,8 +34,6 @@ var datastoreListCmd = &cobra.Command{
 		switch format {
 		case "":
 			fmt.Println(prototext.Format(rsp))
-		case "table":
-			printDataStoresTable(rsp)
 		case "json":
 			b, err := json.MarshalIndent(rsp, "", "  ")
 			if err != nil {
@@ -53,21 +48,4 @@ var datastoreListCmd = &cobra.Command{
 
 func init() {
 	datastoreCmd.AddCommand(datastoreListCmd)
-}
-
-func printDataStoresTable(rsp *sdcpb.ListDataStoreResponse) {
-	tableData := make([][]string, 0, len(rsp.GetDatastores()))
-	for _, r := range rsp.GetDatastores() {
-		tableData = append(tableData, toTableData(r)...)
-	}
-	sort.Slice(tableData, func(i, j int) bool {
-		return tableData[i][0] < tableData[j][0]
-	})
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Name", "Schema", "Protocol", "Address", "State", "Candidate (C/O/P)"})
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
-	table.SetAutoFormatHeaders(false)
-	table.SetAutoWrapText(false)
-	table.AppendBulk(tableData)
-	table.Render()
 }

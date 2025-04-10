@@ -34,7 +34,7 @@ var datastoreCreateCmd = &cobra.Command{
 		}
 
 		req := &sdcpb.CreateDataStoreRequest{
-			Name: datastoreName,
+			DatastoreName: datastoreName,
 		}
 
 		var tg *sdcpb.Target
@@ -64,23 +64,12 @@ var datastoreCreateCmd = &cobra.Command{
 			req.Sync = sync
 		}
 
-		switch {
-		// create a candidate datastore
-		case candidate != "":
-			req.Datastore = &sdcpb.DataStore{
-				Type:     sdcpb.Type_CANDIDATE,
-				Name:     candidate,
-				Owner:    owner,
-				Priority: priority,
-			}
-		//create a main datastore
-		default:
-			req.Schema = &sdcpb.Schema{
-				Name:    schemaName,
-				Vendor:  schemaVendor,
-				Version: schemaVersion,
-			}
+		req.Schema = &sdcpb.Schema{
+			Name:    schemaName,
+			Vendor:  schemaVendor,
+			Version: schemaVersion,
 		}
+
 		fmt.Println("request:")
 		fmt.Println(prototext.Format(req))
 		rsp, err := dataClient.CreateDataStore(ctx, req)
@@ -98,6 +87,4 @@ func init() {
 
 	datastoreCreateCmd.Flags().StringVarP(&target, "target", "", "", "target definition file")
 	datastoreCreateCmd.Flags().StringVarP(&syncFile, "sync", "", "", "target sync definition file")
-	datastoreCreateCmd.Flags().StringVarP(&owner, "owner", "", "", "candidate owner")
-	datastoreCreateCmd.Flags().Int32VarP(&priority, "priority", "", 0, "candidate priority")
 }

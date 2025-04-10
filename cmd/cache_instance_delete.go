@@ -15,19 +15,14 @@
 package cmd
 
 import (
-	"fmt"
-	"sort"
-
-	"github.com/spf13/cobra"
-
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-// listCmd represents the list command
-var listCmd = &cobra.Command{
-	Use:     "list",
-	Aliases: []string{"ls"},
-	Short:   "list caches",
+// deleteCmd represents the delete command
+var deleteCmd = &cobra.Command{
+	Use:   "delete",
+	Short: "delete a cache instance",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -38,18 +33,15 @@ var listCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		caches, err := c.List(cmd.Context())
+		err = c.InstanceDelete(cmd.Context(), cacheName)
 		if err != nil {
 			return err
-		}
-		sort.Strings(caches)
-		for _, cache := range caches {
-			fmt.Println(cache)
 		}
 		return nil
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(listCmd)
+	cacheCmd.AddCommand(deleteCmd)
+	deleteCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
 }
