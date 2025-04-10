@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sdcio/schema-server/pkg/utils"
+	"github.com/sdcio/data-server/pkg/utils"
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"

@@ -15,17 +15,16 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"fmt"
 
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-var cloneName string
-
-// cloneCmd represents the clone command
-var cloneCmd = &cobra.Command{
-	Use:   "clone",
-	Short: "clone a cache instance",
+// listCmd represents the list command
+var intent_get = &cobra.Command{
+	Use:   "intent-get",
+	Short: "get intent",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -36,16 +35,18 @@ var cloneCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = c.Clone(cmd.Context(), cacheName, cloneName)
+
+		data, err := c.InstanceIntentGet(cmd.Context(), cacheName, intentName)
 		if err != nil {
 			return err
 		}
+		fmt.Printf("%s\n", data)
 		return nil
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(cloneCmd)
-	cloneCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
-	cloneCmd.Flags().StringVarP(&cloneName, "clone", "", "", "cache clone name")
+	intent_get.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_get.Flags().StringVarP(&intentName, "intent", "i", "", "intent name")
+	cacheCmd.AddCommand(intent_get)
 }

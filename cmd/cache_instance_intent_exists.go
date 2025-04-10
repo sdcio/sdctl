@@ -15,15 +15,16 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"fmt"
 
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-// deleteCmd represents the delete command
-var deleteCmd = &cobra.Command{
-	Use:   "delete",
-	Short: "delete a cache instance",
+// listCmd represents the list command
+var intent_exists = &cobra.Command{
+	Use:   "intent-exists",
+	Short: "exists intent",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -34,15 +35,18 @@ var deleteCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = c.Delete(cmd.Context(), cacheName)
+
+		b, err := c.InstanceIntentExists(cmd.Context(), cacheName, intentName)
 		if err != nil {
 			return err
 		}
+		fmt.Printf("%t\n", b)
 		return nil
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(deleteCmd)
-	deleteCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_exists.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_exists.Flags().StringVarP(&intentName, "intent", "i", "", "intent name")
+	cacheCmd.AddCommand(intent_exists)
 }

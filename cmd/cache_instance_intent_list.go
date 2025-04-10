@@ -15,19 +15,16 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"fmt"
 
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-var candidateOwner string
-var candidateName string
-var candidatePriority int32
-
-// createCandidateCmd represents the create-candidate command
-var createCandidateCmd = &cobra.Command{
-	Use:   "create-candidate",
-	Short: "create a candidate from a cache instance",
+// listCmd represents the list command
+var intent_list = &cobra.Command{
+	Use:   "intents-list",
+	Short: "list intents",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -38,23 +35,17 @@ var createCandidateCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = c.CreateCandidate(cmd.Context(),
-			cacheName,
-			candidateName,
-			candidateOwner,
-			candidatePriority,
-		)
+
+		data, err := c.InstanceIntentsList(cmd.Context(), cacheName)
 		if err != nil {
 			return err
 		}
+		fmt.Printf("%s\n", data)
 		return nil
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(createCandidateCmd)
-	createCandidateCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
-	createCandidateCmd.Flags().StringVarP(&candidateName, "candidate", "", "", "cache candidate name")
-	createCandidateCmd.Flags().StringVarP(&candidateOwner, "owner", "", "", "cache candidate owner")
-	createCandidateCmd.Flags().Int32VarP(&candidatePriority, "priority", "", 0, "cache candidate priority")
+	intent_list.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	cacheCmd.AddCommand(intent_list)
 }

@@ -15,18 +15,14 @@
 package cmd
 
 import (
-	"fmt"
-
-	"github.com/spf13/cobra"
-	"google.golang.org/protobuf/encoding/prototext"
-
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-// getCmd represents the get command
-var getCmd = &cobra.Command{
-	Use:   "get",
-	Short: "get a cache instance details",
+// listCmd represents the list command
+var intent_delete = &cobra.Command{
+	Use:   "intent-delete",
+	Short: "delete intent",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -37,16 +33,14 @@ var getCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		rsp, err := c.Get(cmd.Context(), cacheName)
-		if err != nil {
-			return err
-		}
-		fmt.Println(prototext.Format(rsp))
-		return nil
+
+		err = c.InstanceIntentDelete(cmd.Context(), cacheName, intentName)
+		return err
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(getCmd)
-	getCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_delete.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_delete.Flags().StringVarP(&intentName, "intent", "i", "", "intent name")
+	cacheCmd.AddCommand(intent_delete)
 }

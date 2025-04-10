@@ -15,26 +15,18 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
-
-	"github.com/spf13/cobra"
+	"strings"
 
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-var pruneID string
-var force bool
-
-// pruneCmd represents the prune command
-var pruneCmd = &cobra.Command{
-	Use:   "prune",
-	Short: "prune a cache instance",
+var intent_get_all = &cobra.Command{
+	Use:   "intents-getall",
+	Short: "getall intent",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
-		if cacheName == "" {
-			return errors.New("missing cache name")
-		}
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
 			Address:       addr,
 			MaxReadStream: 1,
@@ -43,20 +35,22 @@ var pruneCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		rsp, err := c.Prune(cmd.Context(), cacheName, pruneID, force)
+
+		data, err := c.InstanceIntentsGetAll(cmd.Context(), cacheName, exceptNames)
 		if err != nil {
 			return err
 		}
-		if pruneID == "" {
-			fmt.Println(rsp.GetId())
+		result := make([]string, 0, len(data))
+		for _, x := range data {
+			result = append(result, x.String())
 		}
+		fmt.Println(strings.Join(result, "----------\n"))
 		return nil
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(pruneCmd)
-	pruneCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
-	pruneCmd.Flags().StringVarP(&pruneID, "id", "", "", "prune ID")
-	pruneCmd.Flags().BoolVarP(&force, "force", "", false, "force prune ID creation")
+	intent_get_all.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	intent_get_all.Flags().StringArrayVarP(&exceptNames, "except", "e", []string{}, "except names, intents that should be skipped")
+	cacheCmd.AddCommand(intent_get_all)
 }

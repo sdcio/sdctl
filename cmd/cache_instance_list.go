@@ -16,17 +16,17 @@ package cmd
 
 import (
 	"fmt"
-
-	"github.com/spf13/cobra"
+	"sort"
 
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
 
-// existsCmd represents the exists command
-var existsCmd = &cobra.Command{
-	Use:     "exists",
-	Aliases: []string{"ex"},
-	Short:   "check if a cache instance exists",
+// listCmd represents the list command
+var listCmd = &cobra.Command{
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "list caches",
 
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		c, err := client.New(cmd.Context(), &client.ClientConfig{
@@ -37,16 +37,18 @@ var existsCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		ok, err := c.Exists(cmd.Context(), cacheName)
+		caches, err := c.InstancesList(cmd.Context())
 		if err != nil {
 			return err
 		}
-		fmt.Println(ok)
+		sort.Strings(caches)
+		for _, cache := range caches {
+			fmt.Println(cache)
+		}
 		return nil
 	},
 }
 
 func init() {
-	cacheCmd.AddCommand(existsCmd)
-	existsCmd.Flags().StringVarP(&cacheName, "name", "n", "", "cache name")
+	cacheCmd.AddCommand(listCmd)
 }

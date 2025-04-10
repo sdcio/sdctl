@@ -18,6 +18,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	cacheName   string
+	intentName  string
+	exceptNames []string
+	file        string
+)
+
 // cacheCmd represents the cache command
 var cacheCmd = &cobra.Command{
 	Use:   "cache",

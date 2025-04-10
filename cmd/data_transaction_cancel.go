@@ -7,34 +7,36 @@ import (
 	"context"
 	"fmt"
 
-	schema_server "github.com/sdcio/sdc-protos/sdcpb"
+	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
 )
 
-// datastoreDiscardCmd represents the discard command
-var datastoreDiscardCmd = &cobra.Command{
-	Use:          "discard",
-	Short:        "discard changes made to a candidate datastore",
+// dataSetIntentCmd represents the set-intent command
+var dataTransactionCancelCmd = &cobra.Command{
+	Use:          "cancel",
+	Short:        "Cancel a transaction",
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, _ []string) error {
+
+		if transactionId == "" {
+			return fmt.Errorf("")
+		}
+
+		req := &sdcpb.TransactionCancelRequest{
+			TransactionId: transactionId,
+			DatastoreName: datastoreName,
+		}
+
 		ctx, cancel := context.WithCancel(cmd.Context())
 		defer cancel()
 		dataClient, err := createDataClient(ctx, addr)
 		if err != nil {
 			return err
 		}
-		req := &schema_server.DiscardRequest{
-			Name: datastoreName,
-			Datastore: &schema_server.DataStore{
-				Type: schema_server.Type_CANDIDATE,
-				Name: candidate,
-			},
-			Stay: stay,
-		}
 		fmt.Println("request:")
 		fmt.Println(prototext.Format(req))
-		rsp, err := dataClient.Discard(ctx, req)
+		rsp, err := dataClient.TransactionCancel(ctx, req)
 		if err != nil {
 			return err
 		}
@@ -45,5 +47,5 @@ var datastoreDiscardCmd = &cobra.Command{
 }
 
 func init() {
-	datastoreCmd.AddCommand(datastoreDiscardCmd)
+	dataTransactionCmd.AddCommand(dataTransactionCancelCmd)
 }

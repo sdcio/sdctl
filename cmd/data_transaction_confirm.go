@@ -12,15 +12,18 @@ import (
 	"google.golang.org/protobuf/encoding/prototext"
 )
 
-// datastoreDeleteCmd represents the delete command
-var datastoreDeleteCmd = &cobra.Command{
-	Use:          "delete",
-	Short:        "delete datastore",
+// dataSetIntentCmd represents the set-intent command
+var dataTransactionConfirmCmd = &cobra.Command{
+	Use:          "confirm",
+	Short:        "Confirm a transaction",
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, _ []string) error {
-		req := &sdcpb.DeleteDataStoreRequest{
-			Name: datastoreName,
+
+		req := &sdcpb.TransactionConfirmRequest{
+			TransactionId: transactionId,
+			DatastoreName: datastoreName,
 		}
+
 		ctx, cancel := context.WithCancel(cmd.Context())
 		defer cancel()
 		dataClient, err := createDataClient(ctx, addr)
@@ -29,7 +32,7 @@ var datastoreDeleteCmd = &cobra.Command{
 		}
 		fmt.Println("request:")
 		fmt.Println(prototext.Format(req))
-		rsp, err := dataClient.DeleteDataStore(ctx, req)
+		rsp, err := dataClient.TransactionConfirm(ctx, req)
 		if err != nil {
 			return err
 		}
@@ -40,5 +43,5 @@ var datastoreDeleteCmd = &cobra.Command{
 }
 
 func init() {
-	datastoreCmd.AddCommand(datastoreDeleteCmd)
+	dataTransactionCmd.AddCommand(dataTransactionConfirmCmd)
 }

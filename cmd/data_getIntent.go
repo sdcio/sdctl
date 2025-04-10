@@ -5,14 +5,13 @@ package cmd
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
 )
-
-var intentName string
 
 // dataGetIntentCmd represents the get-intent command
 var dataGetIntentCmd = &cobra.Command{
@@ -21,9 +20,9 @@ var dataGetIntentCmd = &cobra.Command{
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		req := &sdcpb.GetIntentRequest{
-			Name:     datastoreName,
-			Intent:   intentName,
-			Priority: priority,
+			DatastoreName: datastoreName,
+			Intent:        intentName,
+			Format:        sdcpb.Format_Intent_Format_JSON,
 		}
 		ctx, cancel := context.WithCancel(cmd.Context())
 		defer cancel()
@@ -37,8 +36,22 @@ var dataGetIntentCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println("response:")
-		fmt.Println(prototext.Format(rsp))
+
+		switch {
+		case rsp.GetBlob() != nil:
+			fmt.Println("Blob Data:")
+			var v any
+			json.Unmarshal(rsp.GetBlob(), &v)
+			prettyByte, err := json.MarshalIndent(v, "", "  ")
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(string(prettyByte))
+		case rsp.GetProto() != nil:
+			fmt.Println("response:")
+			fmt.Println(prototext.Format(rsp))
+		}
+
 		return nil
 	},
 }
@@ -46,5 +59,4 @@ var dataGetIntentCmd = &cobra.Command{
 func init() {
 	dataCmd.AddCommand(dataGetIntentCmd)
 	dataGetIntentCmd.Flags().StringVarP(&intentName, "intent", "", "", "intent name")
-	dataGetIntentCmd.Flags().Int32VarP(&priority, "priority", "", 0, "intent priority")
 }

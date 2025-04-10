@@ -24,7 +24,6 @@ import (
 )
 
 var datastoreName string
-var candidate string
 
 // datastoreCmd represents the datastore command
 var datastoreCmd = &cobra.Command{
@@ -35,7 +34,6 @@ var datastoreCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(datastoreCmd)
 	datastoreCmd.PersistentFlags().StringVarP(&datastoreName, "ds", "", "", "datastore (main) name")
-	datastoreCmd.PersistentFlags().StringVarP(&candidate, "candidate", "", "", "datastore candidate name")
 }
 
 func createDataClient(ctx context.Context, addr string) (sdcpb.DataServerClient, error) {

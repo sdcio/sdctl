@@ -15,12 +15,9 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
-
 	"github.com/sdcio/cache/pkg/client"
+	"github.com/spf13/cobra"
 )
-
-var cacheName string
 
 // var ephemeral bool
 // var cached bool
@@ -39,7 +36,7 @@ var createCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = c.Create(cmd.Context(), cacheName)
+		err = c.InstanceCreate(cmd.Context(), cacheName)
 		if err != nil {
 			return err
 		}
