@@ -24,6 +24,10 @@ var dataCmd = &cobra.Command{
 	Short: "",
 }
 
+var (
+	intentName string
+)
+
 func init() {
 	rootCmd.AddCommand(dataCmd)
 
