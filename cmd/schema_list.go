@@ -7,10 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"os"
-	"sort"
 
-	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
 
@@ -40,27 +37,6 @@ var schemaListCmd = &cobra.Command{
 		}
 		fmt.Println("response:")
 		switch format {
-		case "table", "":
-			tableData := make([][]string, 0, len(schemaList.GetSchema()))
-			for _, schema := range schemaList.GetSchema() {
-				tableData = append(tableData, []string{schema.GetName(), schema.GetVendor(), schema.GetVersion()})
-			}
-			sort.Slice(tableData, func(i, j int) bool {
-				if tableData[i][0] == tableData[j][0] {
-					if tableData[i][1] == tableData[j][1] {
-						return tableData[i][2] < tableData[j][2]
-					}
-					return tableData[i][1] < tableData[j][1]
-				}
-				return tableData[i][0] < tableData[j][0]
-			})
-			table := tablewriter.NewWriter(os.Stdout)
-			table.SetHeader([]string{"Name", "Vendor", "Version"})
-			table.SetAlignment(tablewriter.ALIGN_LEFT)
-			table.SetAutoFormatHeaders(false)
-			table.SetAutoWrapText(false)
-			table.AppendBulk(tableData)
-			table.Render()
 		case "proto":
 			fmt.Println(prototext.Format(schemaList))
 		case "json":
