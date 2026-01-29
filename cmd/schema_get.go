@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sdcio/data-server/pkg/utils"
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/prototext"
@@ -26,7 +25,7 @@ var schemaGetCmd = &cobra.Command{
 	// SilenceErrors: true,
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, _ []string) error {
-		p, err := utils.ParsePath(xpath)
+		p, err := sdcpb.ParsePath(xpath)
 		if err != nil {
 			return err
 		}
