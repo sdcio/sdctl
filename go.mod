@@ -9,7 +9,7 @@ require (
 	github.com/sdcio/sdc-protos v0.0.49
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.10.1
-	github.com/spf13/pflag v1.0.9
+	github.com/spf13/pflag v1.0.10
 	github.com/spf13/viper v1.19.0
 	google.golang.org/grpc v1.78.0
 	google.golang.org/protobuf v1.36.11
