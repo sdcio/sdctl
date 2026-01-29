@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	dsutils "github.com/sdcio/data-server/pkg/utils"
 	sdcpb "github.com/sdcio/sdc-protos/sdcpb"
 	"github.com/sdcio/sdctl/pkg/utils"
 	"github.com/spf13/cobra"
@@ -71,7 +70,7 @@ func (t *TransactionIntent) ToSdcpbTransactionIntent() (*sdcpb.TransactionIntent
 	}
 
 	for _, upd := range t.Updates {
-		p, err := dsutils.ParsePath(upd.Path)
+		p, err := sdcpb.ParsePath(upd.Path)
 		if err != nil {
 			return nil, err
 		}
