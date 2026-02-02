@@ -7,7 +7,7 @@ toolchain go1.24.12
 require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/sdcio/sdc-protos v0.0.49
-	github.com/sirupsen/logrus v1.9.3
+	github.com/sirupsen/logrus v1.9.4
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/pflag v1.0.10
 	github.com/spf13/viper v1.21.0
