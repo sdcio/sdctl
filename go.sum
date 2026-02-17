@@ -42,8 +42,8 @@ github.com/sagikazarmark/locafero v0.11.0 h1:1iurJgmM9G3PA/I+wWYIOw/5SyBtxapeHDc
 github.com/sagikazarmark/locafero v0.11.0/go.mod h1:nVIGvgyzw595SUSUE6tvCp3YYTeHs15MvlmU87WwIik=
 github.com/sdcio/logger v0.0.3 h1:IFUbObObGry+S8lHGwOQKKRxJSuOphgRU/hxVhOdMOM=
 github.com/sdcio/logger v0.0.3/go.mod h1:yWaOxK/G6vszjg8tKZiMqiEjlZouHsjFME4zSk+SAEA=
-github.com/sdcio/sdc-protos v0.0.49 h1:GpLTDEyNnQxO5fjY7b8Y4xMP8f9kr4bbCHPJYVZkK00=
-github.com/sdcio/sdc-protos v0.0.49/go.mod h1:huh1QVE023w+reU2Gt6h1f83R3lJidcFLbQje7cMY1M=
+github.com/sdcio/sdc-protos v0.0.50 h1:aR6Av1QMTFNXKKxnrz8vlIXQ0y21lxQJEMut1oLd2Bg=
+github.com/sdcio/sdc-protos v0.0.50/go.mod h1:huh1QVE023w+reU2Gt6h1f83R3lJidcFLbQje7cMY1M=
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
 github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
 github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 h1:+jumHNA0Wrelhe64i8F6HNlS8pkoyMv5sreGx2Ry5Rw=
